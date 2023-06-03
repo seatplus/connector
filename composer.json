@@ -1,0 +1,74 @@
+{
+    "name": "seatplus/connector",
+    "description": "Base package for tribes and notifications packages",
+    "keywords": [
+        "seatplus",
+        "laravel",
+        "connector"
+    ],
+    "homepage": "https://github.com/seatplus/connector",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Felix Huber",
+            "email": "felix.a.huber@gmx.net",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../*"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "seatplus/core": "^3.0",
+        "illuminate/contracts": "^10.0",
+        "seatplus/auth": "^3.0"
+    },
+    "require-dev": {
+        "nunomaduro/collision": "^7.0",
+        "orchestra/testbench": "^8.0",
+        "pestphp/pest": "^2.0",
+        "pestphp/pest-plugin-laravel": "^2.0",
+        "laravel/pint": "^1.0",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "nunomaduro/larastan": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Seatplus\\Connector\\": "src",
+            "Seatplus\\Connector\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Seatplus\\Connector\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "./vendor/bin/pest",
+        "test-coverage": "XDEBUG_MODE=coverage ./vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Seatplus\\Connector\\ConnectorServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
