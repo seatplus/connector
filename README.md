@@ -1,8 +1,9 @@
 # Base package for tribes and notifications packages
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/seatplus/connector.svg?style=flat-square)](https://packagist.org/packages/seatplus/connector)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/seatplus/connector/run-tests?label=tests)](https://github.com/seatplus/connector/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/seatplus/connector/Check%20&%20fix%20styling?label=code%20style)](https://github.com/seatplus/connector/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![Github Tests Action Status](https://github.com/seatplus/connector/actions/workflows/run-tests.yml/badge.svg)](https://github.com/seatplus/connector/actions/workflows/run-tests.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b01b66f865f986eae23e/maintainability)](https://codeclimate.com/github/seatplus/connector/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/b01b66f865f986eae23e/test_coverage)](https://codeclimate.com/github/seatplus/connector/test_coverage)
 [![Total Downloads](https://img.shields.io/packagist/dt/seatplus/connector.svg?style=flat-square)](https://packagist.org/packages/seatplus/connector)
 
 ## Testing
