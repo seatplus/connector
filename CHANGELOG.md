@@ -15,6 +15,6 @@ All notable changes to `connector` will be documented in this file.
 
 **Full Changelog**: https://github.com/seatplus/connector/compare/1.0.0...1.0.1
 
-## 1.0.0 - 202X-XX-XX
+## 1.0.0 - 2023-06-03
 
 - initial release
