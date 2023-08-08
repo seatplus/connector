@@ -14,6 +14,8 @@ interface Connector
 
     public static function isConnectorConfigured(): bool;
 
+    public static function isConnectorSetup(): bool;
+
     public static function getConnectorConfigUrl(): string;
 
     public static function getRegistrationUrl(): string;

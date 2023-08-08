@@ -12,6 +12,7 @@
 */
 
 use Faker\Factory;
+use Seatplus\Auth\Models\Permissions\Permission;
 use Seatplus\Connector\Tests\TestCase;
 
 //uses(TestCase::class)
@@ -48,7 +49,22 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function faker()
+function faker(): \Faker\Generator
 {
     return Factory::create();
+}
+
+function assignPermissionToUser(Seatplus\Auth\Models\User $user, array|string $permission_strings): void
+{
+    $permission_strings = is_array($permission_strings) ? $permission_strings : [$permission_strings];
+
+    foreach ($permission_strings as $string) {
+        $permission = Permission::findOrCreate($string);
+
+        $user->givePermissionTo($permission);
+    }
+
+    // now re-register all the roles and permissions
+    app()->make(\Spatie\Permission\PermissionRegistrar::class)->registerPermissions();
+    app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 }
