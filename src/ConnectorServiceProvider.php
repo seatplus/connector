@@ -14,7 +14,7 @@ class ConnectorServiceProvider extends ServiceProvider
     public function boot()
     {
         // Publish the JS & CSS,
-        //$this->addPublications();
+        $this->addPublications();
 
         // Add routes
         /*$this->loadRoutesFrom(__DIR__ . '/Http/routes.php');*/
@@ -38,5 +38,17 @@ class ConnectorServiceProvider extends ServiceProvider
             __DIR__.'/../config/connector.sidebar.php', 'package.sidebar'
         );
 
+    }
+
+    private function addPublications()
+    {
+        /*
+         * to publish assets one can run:
+         * php artisan vendor:publish --tag=web --force
+         * or use Laravel Mix to copy the folder to public repo of core.
+         */
+        $this->publishes([
+            __DIR__.'/../resources/js' => resource_path('js'),
+        ], 'web');
     }
 }
