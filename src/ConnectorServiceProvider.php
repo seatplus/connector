@@ -48,7 +48,7 @@ class ConnectorServiceProvider extends ServiceProvider
          * or use Laravel Mix to copy the folder to public repo of core.
          */
         $this->publishes([
-            __DIR__ . '/../resources/js' => resource_path('js'),
+            __DIR__.'/../resources/js' => resource_path('js'),
         ], 'web');
     }
 }

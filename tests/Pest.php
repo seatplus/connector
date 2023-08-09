@@ -49,7 +49,7 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function faker(): \Faker\Generator
+function faker(): Faker\Generator
 {
     return Factory::create();
 }

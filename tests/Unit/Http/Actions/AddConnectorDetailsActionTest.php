@@ -3,80 +3,78 @@
 use Illuminate\Support\Facades\Event;
 use Seatplus\Auth\Models\User;
 use Seatplus\Connector\Contracts\Connector;
-use function Pest\Laravel\actingAs;
 
 beforeEach(function () {
-    $this->user = Event::fakeFor(fn() => User::factory()->create());
+    $this->user = Event::fakeFor(fn () => User::factory()->create());
 });
 
 describe('admin', function () {
-   beforeEach(function () {
+    beforeEach(function () {
 
-       $permission = faker()->word;
+        $permission = faker()->word;
 
-       assignPermissionToUser($this->user, ['superuser', $permission]);
-       $this->actingAs($this->user);
+        assignPermissionToUser($this->user, ['superuser', $permission]);
+        $this->actingAs($this->user);
 
-       $this->action = (new \Seatplus\Connector\Http\Actions\AddConnectorDetailsAction())
-           ->setAdminPermission($permission);
+        $this->action = (new \Seatplus\Connector\Http\Actions\AddConnectorDetailsAction())
+            ->setAdminPermission($permission);
 
-   });
+    });
 
-   it('get Missing Configuration status if connector is not configured', function () {
-       $connector_mock = mockConnector(function ($mock) {
-           $mock->shouldReceive('isConnectorConfigured')
-               ->once()
-               ->andReturn(false);
+    it('get Missing Configuration status if connector is not configured', function () {
+        $connector_mock = mockConnector(function ($mock) {
+            $mock->shouldReceive('isConnectorConfigured')
+                ->once()
+                ->andReturn(false);
 
-           $mock->shouldReceive('getConnectorConfigUrl')
-               ->once()
-               ->andReturn('url');
-       });
+            $mock->shouldReceive('getConnectorConfigUrl')
+                ->once()
+                ->andReturn('url');
+        });
 
-       $result = $this->action->execute($connector_mock);
+        $result = $this->action->execute($connector_mock);
 
-       expect($result)->toHaveKey('status')
-           ->and($result['status'])->toBe('Missing Configuration');
-   });
+        expect($result)->toHaveKey('status')
+            ->and($result['status'])->toBe('Missing Configuration');
+    });
 
-   it('get Incomplete Setup status if connector is not setup', function () {
-       $connector_mock = mockConnector(function ($mock) {
-           $mock->shouldReceive('isConnectorConfigured')
-               ->once()
-               ->andReturn(true);
+    it('get Incomplete Setup status if connector is not setup', function () {
+        $connector_mock = mockConnector(function ($mock) {
+            $mock->shouldReceive('isConnectorConfigured')
+                ->once()
+                ->andReturn(true);
 
-           $mock->shouldReceive('isConnectorSetup')
-               ->once()
-               ->andReturn(false);
+            $mock->shouldReceive('isConnectorSetup')
+                ->once()
+                ->andReturn(false);
 
-           $mock->shouldReceive('getRegistrationUrl')
-               ->once()
-               ->andReturn('url');
-       });
+            $mock->shouldReceive('getRegistrationUrl')
+                ->once()
+                ->andReturn('url');
+        });
 
+        $result = $this->action->execute($connector_mock);
 
-       $result = $this->action->execute($connector_mock);
+        expect($result)->toHaveKey('status');
+        expect($result['status'])->toBe('Incomplete Setup');
+    });
 
-       expect($result)->toHaveKey('status');
-       expect($result['status'])->toBe('Incomplete Setup');
-   });
+    test('get Disabled status if connector is disabled by method', function () {
+        $connector_mock = mockConnector(function ($mock) {
+            $mock->shouldReceive('isConnectorConfigured')
+                ->once()
+                ->andReturn(true);
 
-   test('get Disabled status if connector is disabled by method', function () {
-       $connector_mock = mockConnector(function ($mock) {
-           $mock->shouldReceive('isConnectorConfigured')
-               ->once()
-               ->andReturn(true);
+            $mock->shouldReceive('isConnectorSetup')
+                ->once()
+                ->andReturn(true);
+        });
 
-           $mock->shouldReceive('isConnectorSetup')
-               ->once()
-               ->andReturn(true);
-       });
+        $result = $this->action->setIsDisabled(true)->execute($connector_mock);
 
-       $result = $this->action->setIsDisabled(true)->execute($connector_mock);
-
-       expect($result)->toHaveKey('status');
-       expect($result['status'])->toBe('Disabled');
-   });
+        expect($result)->toHaveKey('status');
+        expect($result['status'])->toBe('Disabled');
+    });
 });
 
 describe('regular user', function () {
@@ -88,7 +86,7 @@ describe('regular user', function () {
 
     it('get Disabled status if connector is disabled by method', function () {
 
-        $connector_mock = mockConnector(fn() => null);
+        $connector_mock = mockConnector(fn () => null);
 
         $result = $this->action->setIsDisabled(true)->execute($connector_mock);
 
@@ -148,7 +146,7 @@ describe('regular user', function () {
                 ->andReturn($registered ? $user : null);
 
             // if user is not registered we need to mock the getRegistrationUrl method
-            if(!$registered) {
+            if (! $registered) {
                 $mock->shouldReceive('getRegistrationUrl')
                     ->once()
                     ->andReturn('url');
@@ -161,11 +159,12 @@ describe('regular user', function () {
         expect($result['status'])->toBe($registered ? 'Registered' : 'Not Registered');
     })->with([
         'registered' => true,
-        'not registered' => false
+        'not registered' => false,
     ]);
 });
 
-function mockConnector(Closure $closure) {
+function mockConnector(Closure $closure)
+{
     return mock(Connector::class, function ($mock) use ($closure) {
         $mock->shouldReceive('getName')
             ->once()

@@ -9,14 +9,12 @@ use Seatplus\Connector\Contracts\Connector;
 
 class AddConnectorDetailsAction
 {
-
     private bool $is_admin;
 
     public function __construct(
         private string $admin_permission = 'superuser',
-        private bool   $is_disabled = false
-    )
-    {
+        private bool $is_disabled = false
+    ) {
         $this->is_admin = auth()->user()->can($this->admin_permission);
     }
 
@@ -28,7 +26,7 @@ class AddConnectorDetailsAction
 
         $pipes = $this->is_admin ? $this->getAdminArray() : [];
 
-        $status =  Pipeline::send($connector)
+        $status = Pipeline::send($connector)
             ->through([
                 ...$pipes,
                 fn (Connector $connector, Closure $next) => $this->checkIfConnectorIsDisabled($connector, $next),
@@ -88,12 +86,14 @@ class AddConnectorDetailsAction
     public function setAdminPermission(string $admin_permission): AddConnectorDetailsAction
     {
         $this->admin_permission = $admin_permission;
+
         return $this;
     }
 
     public function setIsDisabled(bool $is_disabled): AddConnectorDetailsAction
     {
         $this->is_disabled = $is_disabled;
+
         return $this;
     }
 
@@ -111,7 +111,7 @@ class AddConnectorDetailsAction
     {
         $user = $connector::findUser(auth()->user()->getAuthIdentifier());
 
-        return $this->getStatusArray($user ? 'Registered': 'Not Registered', $connector);
+        return $this->getStatusArray($user ? 'Registered' : 'Not Registered', $connector);
     }
 
     private function getStatusArray(string $status, Connector $connector): array
@@ -139,5 +139,4 @@ class AddConnectorDetailsAction
             ],
         };
     }
-
 }
