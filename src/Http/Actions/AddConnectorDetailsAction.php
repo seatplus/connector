@@ -131,11 +131,11 @@ class AddConnectorDetailsAction
             ],
             'Registered' => [
                 'status' => 'Registered',
-                'can_enable' => $this->is_admin, // TODO check if this is needed
+                'can_enable' => $this->is_admin, // This is required for the frontend to show the disable button
             ],
             default => [
                 'status' => 'Disabled',
-                'can_enable' => $this->is_admin,
+                'can_enable' => $this->is_admin, // This is required for the frontend to show the enable button
             ],
         };
     }
