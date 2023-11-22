@@ -27,8 +27,8 @@ jobs:
           #collation server: 'utf8_general_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
           mariadb version: '10.7' # Optional, default value is "latest". The version of the MariaDB
           mysql database: 'testbench' # Optional, default value is "test". The specified database which will be create
-          mysql user: 'default' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
-          mysql password: 'secret' # Required if "mysql user" exists. The password for the "mysql user"
+          mysql user: 'root' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
+          mysql password: 'AG' # Required if "mysql user" exists. The password for the "mysql user"
       - name: Redis Server in GitHub Actions
         uses: supercharge/redis-github-action@1.1.0
         with:
