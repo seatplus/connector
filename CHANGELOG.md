@@ -2,6 +2,14 @@
 
 All notable changes to `connector` will be documented in this file.
 
+## 1.2.0 - 2023-11-22
+
+### What's Changed
+
+- update dependencies by @herpaderpaldent in https://github.com/seatplus/connector/pull/4
+
+**Full Changelog**: https://github.com/seatplus/connector/compare/1.1.0...1.2.0
+
 ## 1.1.0 - 2023-08-09
 
 ### What's Changed
