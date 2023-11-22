@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^8.1",
-        "seatplus/core": "^3.0",
+        "seatplus/core": "^4.0",
         "illuminate/contracts": "^10.0",
         "seatplus/auth": "^3.0"
     },
